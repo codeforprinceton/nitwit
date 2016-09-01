@@ -1,7 +1,16 @@
 package org.codeforprinceton.twitter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import twitter4j.Query;
+import twitter4j.QueryResult;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
 
 /**
  * Twitter Search Agent.
@@ -13,18 +22,37 @@ import java.util.Set;
  */
 public class TwitterSearchAgent {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	private Twitter twitter;
+
+	public TwitterSearchAgent(Twitter twitter) {
+
+		super();
+		this.twitter = twitter;
+	}
+
 	/**
 	 * Simple Query, accepting just a single query String.
 	 * 
 	 * @param simpleQueryString the simple query String
-	 * @return a Set of Hashtags
+	 * @return a List of Tweets
 	 */
-	public Set<String> simpleQueryForHashTags(String simpleQueryString) {
+	public List<Status> simpleQuery(String simpleQueryString) {
 
-		Set<String> hashtags = new HashSet<>();
+		Query query = new Query(simpleQueryString);
+		QueryResult result = null;
 
-		hashtags.add("Dummy!");
-		return hashtags;
+		try {
+
+			result = twitter.search(query);
+		}
+		catch (TwitterException exception) {
+
+			logger.warn("Failed to query Twitter!", exception);
+			return new ArrayList<>();
+		}
+		return result.getTweets();
 	}
 
 }

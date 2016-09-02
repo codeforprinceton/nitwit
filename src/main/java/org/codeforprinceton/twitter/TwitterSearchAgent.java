@@ -1,3 +1,6 @@
+/**
+ * Copyright of Code for Princeton (c) 2016.
+ */
 package org.codeforprinceton.twitter;
 
 import java.util.ArrayList;

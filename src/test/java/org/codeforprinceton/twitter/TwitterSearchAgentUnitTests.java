@@ -1,3 +1,6 @@
+/**
+ * Copyright of Code for Princeton (c) 2016.
+ */
 package org.codeforprinceton.twitter;
 
 import static org.junit.Assert.assertEquals;
@@ -9,9 +12,11 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codeforprinceton.UnitTestCategory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -23,10 +28,8 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-import org.codeforprinceton.twitter.TwitterSearchAgent;
-
 @RunWith(MockitoJUnitRunner.class)
-public class TwitterSearchAgentTest {
+public class TwitterSearchAgentUnitTests {
 
 	private static final String SIMPLE_QUERY_STRING = "#codeforprinceton";
 
@@ -55,6 +58,7 @@ public class TwitterSearchAgentTest {
 	}
 
 	@Test
+	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TestZeroTweets() throws TwitterException {
 
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenReturn(mock(QueryResult.class));
@@ -68,6 +72,7 @@ public class TwitterSearchAgentTest {
 	}
 
 	@Test
+	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TestOneTweet() throws TwitterException {
 
 		QueryResult queryResult = mock(QueryResult.class);
@@ -87,6 +92,7 @@ public class TwitterSearchAgentTest {
 	}
 
 	@Test
+	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TestTenTweets() throws TwitterException {
 
 		QueryResult queryResult = mock(QueryResult.class);
@@ -109,6 +115,7 @@ public class TwitterSearchAgentTest {
 	}
 
 	@Test
+	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TwitterException() throws TwitterException {
 
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenThrow(TwitterException.class);
@@ -122,6 +129,7 @@ public class TwitterSearchAgentTest {
 	}
 
 	@Test
+	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_Null() throws TwitterException {
 
 		when(twitter.search(new Query(null))).thenThrow(TwitterException.class);

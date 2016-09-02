@@ -27,8 +27,17 @@ public class TwitterSearchAgent {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	private static final int DEFAULT_RESULTS = 15;
+
+	private static final int MAX_RESULTS = 100;
+
 	private Twitter twitter;
 
+	/**
+	 * Default constructor.
+	 * 
+	 * @param twitter the Twitter Singleton
+	 */
 	public TwitterSearchAgent(Twitter twitter) {
 
 		super();
@@ -43,7 +52,32 @@ public class TwitterSearchAgent {
 	 */
 	public List<Status> simpleQuery(String simpleQueryString) {
 
+		return simpleQuery(simpleQueryString, DEFAULT_RESULTS);
+	}
+
+	/**
+	 * Simple Query, accepting just a single query String.
+	 * 
+	 * @param simpleQueryString the simple query String
+	 * @param maxResults the maximum number of results to return (maxs out at 100)
+	 * @return a List of Tweets
+	 */
+	public List<Status> simpleQuery(String simpleQueryString, int maxResults) {
+
 		Query query = new Query(simpleQueryString);
+
+		if (maxResults != DEFAULT_RESULTS) {
+
+			if (maxResults <= MAX_RESULTS) {
+
+				query.setCount(maxResults);
+			}
+			else {
+
+				query.setCount(MAX_RESULTS);
+			}
+		}
+
 		QueryResult result = null;
 
 		try {

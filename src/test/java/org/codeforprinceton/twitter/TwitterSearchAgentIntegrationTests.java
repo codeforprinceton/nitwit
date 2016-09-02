@@ -35,12 +35,16 @@ import twitter4j.TwitterFactory;
 public class TwitterSearchAgentIntegrationTests {
 
 	private static final String SIMPLE_QUERY_STRING_ZERO = "#NotExpectingAResultForThisHashTag";
-	
-	private static final String SIMPLE_QUERY_STRING_FIFTEEN = "#Always";
+
+	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#Always";
 
 	private static final int SIMPLE_RETURN_ZERO = 0;
 
-	private static final int SIMPLE_RETURN_FIFTEEN = 15; 
+	private static final int SIMPLE_RETURN_FIFTEEN = 15;
+
+	private static final int SIMPLE_RETURN_HUNDRED = 100;
+
+	private static final int SIMPLE_RETURN_HUNDRED_ONE = 101;
 
 	private Twitter twitter = null;
 
@@ -70,12 +74,33 @@ public class TwitterSearchAgentIntegrationTests {
 	}
 
 	@Test
-	public void simpleQueryForHashtags_TestOneTweet() throws TwitterException {
+	public void simpleQueryForHashtags_TestFifteenTweets() throws TwitterException {
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_FIFTEEN);
+		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS);
 
 		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return one results!", SIMPLE_RETURN_FIFTEEN, hashtags.size());
+		assertEquals("Simple Query for Hashtags should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
+				hashtags.size());
+	}
+
+	@Test
+	public void simpleQueryForHashtags_TestHundredTweets() throws TwitterException {
+
+		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED);
+
+		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
+		assertEquals("Simple Query for Hashtags should return one hundred results!", SIMPLE_RETURN_HUNDRED,
+				hashtags.size());
+	}
+
+	@Test
+	public void simpleQueryForHashtags_TestHundredOneTweets() throws TwitterException {
+
+		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED_ONE);
+
+		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
+		assertEquals("Simple Query for Hashtags should return one hundred (not one hundred and one) results!",
+				SIMPLE_RETURN_HUNDRED, hashtags.size());
 	}
 
 	@Test

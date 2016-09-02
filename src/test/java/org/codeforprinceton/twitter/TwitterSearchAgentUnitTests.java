@@ -46,7 +46,11 @@ public class TwitterSearchAgentUnitTests {
 
 	private static final int SIMPLE_RETURN_ONE = 1;
 
-	private static final int SIMPLE_RETURN_TEN = 10;
+	private static final int SIMPLE_RETURN_FIFTEEN = 15;
+
+	private static final int SIMPLE_RETURN_HUNDRED = 100;
+
+	private static final int SIMPLE_RETURN_HUNDRED_ONE = 101;
 
 	@Mock
 	private Twitter twitter;
@@ -99,13 +103,13 @@ public class TwitterSearchAgentUnitTests {
 	}
 
 	@Test
-	public void simpleQueryForHashtags_TestTenTweets() throws TwitterException {
+	public void simpleQueryForHashtags_TestFifteenTweets() throws TwitterException {
 
 		QueryResult queryResult = mock(QueryResult.class);
 
 		List<Status> statuses = new ArrayList<Status>();
 
-		for (int position = 0; position < SIMPLE_RETURN_TEN; position++) {
+		for (int position = 0; position < SIMPLE_RETURN_FIFTEEN; position++) {
 			statuses.add(mock(Status.class));
 		}
 
@@ -115,9 +119,62 @@ public class TwitterSearchAgentUnitTests {
 		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING);
 
 		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return ten results!", SIMPLE_RETURN_TEN, hashtags.size());
+		assertEquals("Simple Query for Hashtags should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
+				hashtags.size());
 
 		verify(twitter).search(new Query(SIMPLE_QUERY_STRING));
+	}
+
+	@Test
+	public void simpleQueryForHashtags_TestHundredTweets() throws TwitterException {
+
+		QueryResult queryResult = mock(QueryResult.class);
+
+		List<Status> statuses = new ArrayList<Status>();
+
+		for (int position = 0; position < SIMPLE_RETURN_HUNDRED; position++) {
+			statuses.add(mock(Status.class));
+		}
+
+		Query query = new Query(SIMPLE_QUERY_STRING);
+		query.setCount(SIMPLE_RETURN_HUNDRED);
+		
+		when(twitter.search(query)).thenReturn(queryResult);
+		when(queryResult.getTweets()).thenReturn(statuses);
+
+		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING, SIMPLE_RETURN_HUNDRED);
+
+		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
+		assertEquals("Simple Query for Hashtags should return hundreed results!", SIMPLE_RETURN_HUNDRED,
+				hashtags.size());
+
+		verify(twitter).search(query);
+	}
+
+	@Test
+	public void simpleQueryForHashtags_TestHundredOneTweets() throws TwitterException {
+
+		QueryResult queryResult = mock(QueryResult.class);
+
+		List<Status> statuses = new ArrayList<Status>();
+
+		for (int position = 0; position < SIMPLE_RETURN_HUNDRED; position++) {
+			statuses.add(mock(Status.class));
+		}
+
+		Query query = new Query(SIMPLE_QUERY_STRING);
+		query.setCount(SIMPLE_RETURN_HUNDRED);
+		
+		when(twitter.search(query)).thenReturn(queryResult);
+		when(queryResult.getTweets()).thenReturn(statuses);
+
+		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING, SIMPLE_RETURN_HUNDRED_ONE);
+
+		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
+		assertEquals("Simple Query for Hashtags should return one hundred (not one hundred and one) results!",
+				SIMPLE_RETURN_HUNDRED, hashtags.size());
+
+		verify(twitter).search(query);
 	}
 
 	@Test

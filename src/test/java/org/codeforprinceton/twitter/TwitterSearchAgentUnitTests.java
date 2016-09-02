@@ -28,7 +28,16 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
+/**
+ * Twitter Search Agent Unit Tests.
+ * <p>
+ * Covers all possible paths, happy or exception.
+ * </p>
+ * 
+ * @author BoggyBumblebee
+ */
 @RunWith(MockitoJUnitRunner.class)
+@Category(UnitTestCategory.class)
 public class TwitterSearchAgentUnitTests {
 
 	private static final String SIMPLE_QUERY_STRING = "#codeforprinceton";
@@ -40,10 +49,10 @@ public class TwitterSearchAgentUnitTests {
 	private static final int SIMPLE_RETURN_TEN = 10;
 
 	@Mock
-	Twitter twitter;
+	private Twitter twitter;
 
 	@InjectMocks
-	TwitterSearchAgent agent = null;
+	private TwitterSearchAgent agent = null;
 
 	@Before
 	public void setUp() throws Exception {
@@ -58,7 +67,6 @@ public class TwitterSearchAgentUnitTests {
 	}
 
 	@Test
-	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TestZeroTweets() throws TwitterException {
 
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenReturn(mock(QueryResult.class));
@@ -72,7 +80,6 @@ public class TwitterSearchAgentUnitTests {
 	}
 
 	@Test
-	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TestOneTweet() throws TwitterException {
 
 		QueryResult queryResult = mock(QueryResult.class);
@@ -92,7 +99,6 @@ public class TwitterSearchAgentUnitTests {
 	}
 
 	@Test
-	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TestTenTweets() throws TwitterException {
 
 		QueryResult queryResult = mock(QueryResult.class);
@@ -115,7 +121,6 @@ public class TwitterSearchAgentUnitTests {
 	}
 
 	@Test
-	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_TwitterException() throws TwitterException {
 
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenThrow(TwitterException.class);
@@ -129,7 +134,6 @@ public class TwitterSearchAgentUnitTests {
 	}
 
 	@Test
-	@Category(UnitTestCategory.class)
 	public void simpleQueryForHashtags_Null() throws TwitterException {
 
 		when(twitter.search(new Query(null))).thenThrow(TwitterException.class);

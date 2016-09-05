@@ -5,6 +5,7 @@ package org.codeforprinceton.twitter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -13,8 +14,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -30,11 +29,10 @@ import twitter4j.TwitterFactory;
  * 
  * @author BoggyBumblebee
  */
-@RunWith(MockitoJUnitRunner.class)
 @Category(IntegrationTestCategory.class)
 public class TwitterSearchAgentIntegrationTests {
 
-	private static final String SIMPLE_QUERY_STRING_ZERO = "#NotExpectingAResultForThisHashTag";
+	private static final String SIMPLE_QUERY_STRING_ZERO = "#NotExpectingAResultForThisHashtag";
 
 	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#Always";
 
@@ -110,6 +108,33 @@ public class TwitterSearchAgentIntegrationTests {
 
 		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
 		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+	}
+
+	@Test
+	public void exhaustiveQueryForStatuses_TestZeroStatuses() throws TwitterException {
+
+		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING_ZERO);
+
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+	}
+
+	@Test
+	public void exhaustiveQueryForStatuses_TestManyStatuses() throws TwitterException {
+
+		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING_ALWAYS);
+
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
+		assertTrue("Exhaustive Query for Statuses should return many results!", SIMPLE_RETURN_ZERO < hashtags.size());
+	}
+
+	@Test
+	public void exhaustiveQueryForStatuses_Null() throws TwitterException {
+
+		List<Status> hashtags = agent.exhaustiveQuery(null);
+
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
 	}
 
 }

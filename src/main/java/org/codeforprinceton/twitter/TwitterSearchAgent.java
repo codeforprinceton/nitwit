@@ -48,7 +48,7 @@ public class TwitterSearchAgent {
 	 * Simple Query, accepting just a single query String.
 	 * 
 	 * @param simpleQueryString the simple query String
-	 * @return a List of Tweets
+	 * @return a List of Statuses
 	 */
 	public List<Status> simpleQuery(String simpleQueryString) {
 
@@ -56,11 +56,11 @@ public class TwitterSearchAgent {
 	}
 
 	/**
-	 * Simple Query, accepting just a single query String.
+	 * Simple Query, accepting just a query String and the maximum number of results (int)eger.
 	 * 
 	 * @param simpleQueryString the simple query String
 	 * @param maxResults the maximum number of results to return (maxs out at 100)
-	 * @return a List of Tweets
+	 * @return a List of Statuses
 	 */
 	public List<Status> simpleQuery(String simpleQueryString, int maxResults) {
 
@@ -90,6 +90,44 @@ public class TwitterSearchAgent {
 			return new ArrayList<>();
 		}
 		return result.getTweets();
+	}
+
+	/**
+	 * Exhaustive Query, accepting just a single query String.
+	 * 
+	 * @param simpleQueryString the simple query String
+	 * @return a List of Statuses
+	 */
+	public List<Status> exhaustiveQuery(String simpleQueryString) {
+
+		List<Status> statuses = new ArrayList<>();
+
+		Query query = new Query(simpleQueryString);
+		query.setCount(MAX_RESULTS);
+
+		QueryResult result = null;
+
+		try {
+
+			result = twitter.search(query);
+
+			statuses.addAll(result.getTweets());
+
+			while (result.hasNext()) {
+
+				result = twitter.search(result.nextQuery());
+				statuses.addAll(result.getTweets());
+			}
+		}
+		catch (
+
+		TwitterException exception) {
+
+			logger.warn("Failed to query Twitter!", exception);
+			return new ArrayList<>();
+		}
+
+		return statuses;
 	}
 
 }

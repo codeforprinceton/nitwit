@@ -65,51 +65,51 @@ public class TwitterSearchAgentIntegrationTests {
 	}
 
 	@Test
-	public void simpleQueryForHashtags_TestZeroTweets() throws TwitterException {
+	public void simpleQueryForStatuses_TestZeroStatuses() throws TwitterException {
 
 		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ZERO);
 
-		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
 	}
 
 	@Test
-	public void simpleQueryForHashtags_TestFifteenTweets() throws TwitterException {
+	public void simpleQueryForStatuses_TestFifteenStatuses() throws TwitterException {
 
 		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS);
 
-		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
+		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Simple Query for Statuses should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
 				hashtags.size());
 	}
 
 	@Test
-	public void simpleQueryForHashtags_TestHundredTweets() throws TwitterException {
+	public void simpleQueryForStatuses_TestHundredStatuses() throws TwitterException {
 
 		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED);
 
-		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return one hundred results!", SIMPLE_RETURN_HUNDRED,
+		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Simple Query for Statuses should return one hundred results!", SIMPLE_RETURN_HUNDRED,
 				hashtags.size());
 	}
 
 	@Test
-	public void simpleQueryForHashtags_TestHundredOneTweets() throws TwitterException {
+	public void simpleQueryForStatuses_TestHundredOneStatuses() throws TwitterException {
 
 		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED_ONE);
 
-		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return one hundred (not one hundred and one) results!",
+		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Simple Query for Statuses should return one hundred (not one hundred and one) results!",
 				SIMPLE_RETURN_HUNDRED, hashtags.size());
 	}
 
 	@Test
-	public void simpleQueryForHashtags_Null() throws TwitterException {
+	public void simpleQueryForStatuses_Null() throws TwitterException {
 
 		List<Status> hashtags = agent.simpleQuery(null);
 
-		assertNotNull("Simple Query for Hashtags should not return a null response!", hashtags);
-		assertEquals("Simple Query for Hashtags should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
 	}
 
 }

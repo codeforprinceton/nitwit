@@ -5,6 +5,7 @@ package org.codeforprinceton.spider;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -22,6 +23,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import twitter4j.HashtagEntity;
 import twitter4j.Status;
 
 /**
@@ -41,7 +43,7 @@ public class TwitterSpiderUnitTests {
 	private static final String LEVEL_ONE_QUERY_STRING = "#codeforprinceton";
 
 	private static final int LEVEL_ZERO_QUERY_RESULTS = 0;
-	
+
 	private static final int LEVEL_ONE_QUERY_RESULTS = 1;
 
 	@Mock
@@ -69,7 +71,7 @@ public class TwitterSpiderUnitTests {
 	public void spider_TestNoHashtags() throws Exception {
 
 		when(agent.exhaustiveQuery(LEVEL_ZERO_QUERY_STRING)).thenReturn(new ArrayList<Status>());
-		
+
 		List<String> hashtags = spider.spiderHashtags(LEVEL_ZERO_QUERY_STRING);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
@@ -81,13 +83,37 @@ public class TwitterSpiderUnitTests {
 	@Test
 	public void spider_TestOneHashtag() throws Exception {
 
-		when(agent.exhaustiveQuery(LEVEL_ONE_QUERY_STRING)).thenReturn(mockArrayListStatuses);
-		
+		List<Status> statuses = buildStatusList(LEVEL_ONE_QUERY_RESULTS);
+
+		when(agent.exhaustiveQuery(LEVEL_ONE_QUERY_STRING)).thenReturn(statuses);
+		when(statuses.get(0).getHashtagEntities()).thenReturn(buildHashtagEntityArray(LEVEL_ONE_QUERY_RESULTS));
+
 		List<String> hashtags = spider.spiderHashtags(LEVEL_ONE_QUERY_STRING);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
-		assertEquals("Spider for Hashtags should return zero results!", LEVEL_ONE_QUERY_RESULTS, hashtags.size());
+		assertEquals("Spider for Hashtags should return one result!", LEVEL_ONE_QUERY_RESULTS, hashtags.size());
 
 		verify(agent).exhaustiveQuery(LEVEL_ONE_QUERY_STRING);
+		verify(statuses.get(0)).getHashtagEntities();
+	}
+
+	private List<Status> buildStatusList(int number) {
+
+		List<Status> statuses = new ArrayList<>();
+
+		for (int position = 0; position < number; position++) {
+			statuses.add(mock(Status.class));
+		}
+		return statuses;
+	}
+
+	private HashtagEntity[] buildHashtagEntityArray(int number) {
+
+		List<HashtagEntity> hashtagEntities = new ArrayList<>();
+
+		for (int position = 0; position < number; position++) {
+			hashtagEntities.add(mock(HashtagEntity.class));
+		}
+		return hashtagEntities.toArray(new HashtagEntity[hashtagEntities.size()]);
 	}
 }

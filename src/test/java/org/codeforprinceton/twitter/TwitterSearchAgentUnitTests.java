@@ -75,10 +75,10 @@ public class TwitterSearchAgentUnitTests {
 
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenReturn(mock(QueryResult.class));
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 
 		verify(twitter).search(new Query(SIMPLE_QUERY_STRING));
 	}
@@ -91,10 +91,10 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_ONE));
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return one results!", SIMPLE_RETURN_ONE, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return one results!", SIMPLE_RETURN_ONE, statuses.size());
 
 		verify(twitter).search(new Query(SIMPLE_QUERY_STRING));
 		verify(queryResult).getTweets();
@@ -108,11 +108,11 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_FIFTEEN));
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
 		assertEquals("Simple Query for Statuses should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
-				hashtags.size());
+				statuses.size());
 
 		verify(twitter).search(new Query(SIMPLE_QUERY_STRING));
 		verify(queryResult).getTweets();
@@ -129,11 +129,11 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(query)).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_HUNDRED));
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING, SIMPLE_RETURN_HUNDRED);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING, SIMPLE_RETURN_HUNDRED);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
 		assertEquals("Simple Query for Statuses should return one hundred results!", SIMPLE_RETURN_HUNDRED,
-				hashtags.size());
+				statuses.size());
 
 		verify(twitter).search(query);
 		verify(queryResult).getTweets();
@@ -150,11 +150,11 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(query)).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_HUNDRED));
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING, SIMPLE_RETURN_HUNDRED_ONE);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING, SIMPLE_RETURN_HUNDRED_ONE);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
 		assertEquals("Simple Query for Statuses should return one hundred (not one hundred and one) results!",
-				SIMPLE_RETURN_HUNDRED, hashtags.size());
+				SIMPLE_RETURN_HUNDRED, statuses.size());
 
 		verify(twitter).search(query);
 		verify(queryResult).getTweets();
@@ -165,10 +165,10 @@ public class TwitterSearchAgentUnitTests {
 
 		when(twitter.search(new Query(SIMPLE_QUERY_STRING))).thenThrow(TwitterException.class);
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 
 		verify(twitter).search(new Query(SIMPLE_QUERY_STRING));
 	}
@@ -178,10 +178,10 @@ public class TwitterSearchAgentUnitTests {
 
 		when(twitter.search(new Query(null))).thenThrow(TwitterException.class);
 
-		List<Status> hashtags = agent.simpleQuery(null);
+		List<Status> statuses = agent.simpleQuery(null);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 
 		verify(twitter).search(new Query(null));
 	}
@@ -194,10 +194,10 @@ public class TwitterSearchAgentUnitTests {
 
 		when(twitter.search(query)).thenReturn(mock(QueryResult.class));
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
+		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 
 		verify(twitter).search(query);
 	}
@@ -213,10 +213,10 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(query)).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_ONE));
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Exhaustive Query for Statuses should return one result!", SIMPLE_RETURN_ONE, hashtags.size());
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
+		assertEquals("Exhaustive Query for Statuses should return one result!", SIMPLE_RETURN_ONE, statuses.size());
 
 		verify(twitter).search(query);
 		verify(queryResult).getTweets();
@@ -233,11 +233,11 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(query)).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_FIFTEEN));
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
 		assertEquals("Exhaustive Query for Statuses should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
-				hashtags.size());
+				statuses.size());
 
 		verify(twitter).search(query);
 		verify(queryResult).getTweets();
@@ -254,11 +254,11 @@ public class TwitterSearchAgentUnitTests {
 		when(twitter.search(query)).thenReturn(queryResult);
 		when(queryResult.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_HUNDRED));
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
 		assertEquals("Exhaustive Query for Statuses should return one hundred results!", SIMPLE_RETURN_HUNDRED,
-				hashtags.size());
+				statuses.size());
 
 		verify(twitter).search(query);
 		verify(queryResult).getTweets();
@@ -281,25 +281,15 @@ public class TwitterSearchAgentUnitTests {
 		when(queryResultOne.getTweets()).thenReturn(buildStatusList(SIMPLE_RETURN_ONE));
 		when(queryResultOne.hasNext()).thenReturn(Boolean.FALSE);
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
 		assertEquals("Exhaustive Query for Statuses should return oen hundred and one results!",
-				SIMPLE_RETURN_HUNDRED_ONE, hashtags.size());
+				SIMPLE_RETURN_HUNDRED_ONE, statuses.size());
 
 		verify(twitter).search(query);
 		verify(queryResultHundred).getTweets();
 		verify(queryResultOne).getTweets();
-	}
-
-	private List<Status> buildStatusList(int number) {
-
-		List<Status> statuses = new ArrayList<>();
-
-		for (int position = 0; position < number; position++) {
-			statuses.add(mock(Status.class));
-		}
-		return statuses;
 	}
 
 	@Test
@@ -310,10 +300,10 @@ public class TwitterSearchAgentUnitTests {
 
 		when(twitter.search(query)).thenThrow(TwitterException.class);
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 
 		verify(twitter).search(query);
 	}
@@ -326,12 +316,22 @@ public class TwitterSearchAgentUnitTests {
 
 		when(twitter.search(query)).thenThrow(TwitterException.class);
 
-		List<Status> hashtags = agent.exhaustiveQuery(null);
+		List<Status> statuses = agent.exhaustiveQuery(null);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 
 		verify(twitter).search(query);
 	}
 
+	private List<Status> buildStatusList(int number) {
+
+		List<Status> statuses = new ArrayList<>();
+
+		for (int position = 0; position < number; position++) {
+			statuses.add(mock(Status.class));
+		}
+		return statuses;
+	}
+	
 }

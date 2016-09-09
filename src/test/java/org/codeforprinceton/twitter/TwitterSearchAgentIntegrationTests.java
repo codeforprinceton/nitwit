@@ -65,76 +65,76 @@ public class TwitterSearchAgentIntegrationTests {
 	@Test
 	public void simpleQueryForStatuses_TestZeroStatuses() throws TwitterException {
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ZERO);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING_ZERO);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 	}
 
 	@Test
 	public void simpleQueryForStatuses_TestFifteenStatuses() throws TwitterException {
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
 		assertEquals("Simple Query for Statuses should return fifteen results!", SIMPLE_RETURN_FIFTEEN,
-				hashtags.size());
+				statuses.size());
 	}
 
 	@Test
 	public void simpleQueryForStatuses_TestHundredStatuses() throws TwitterException {
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
 		assertEquals("Simple Query for Statuses should return one hundred results!", SIMPLE_RETURN_HUNDRED,
-				hashtags.size());
+				statuses.size());
 	}
 
 	@Test
 	public void simpleQueryForStatuses_TestHundredOneStatuses() throws TwitterException {
 
-		List<Status> hashtags = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED_ONE);
+		List<Status> statuses = agent.simpleQuery(SIMPLE_QUERY_STRING_ALWAYS, SIMPLE_RETURN_HUNDRED_ONE);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
 		assertEquals("Simple Query for Statuses should return one hundred (not one hundred and one) results!",
-				SIMPLE_RETURN_HUNDRED, hashtags.size());
+				SIMPLE_RETURN_HUNDRED, statuses.size());
 	}
 
 	@Test
 	public void simpleQueryForStatuses_Null() throws TwitterException {
 
-		List<Status> hashtags = agent.simpleQuery(null);
+		List<Status> statuses = agent.simpleQuery(null);
 
-		assertNotNull("Simple Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Simple Query for Statuses should not return a null response!", statuses);
+		assertEquals("Simple Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 	}
 
 	@Test
 	public void exhaustiveQueryForStatuses_TestZeroStatuses() throws TwitterException {
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING_ZERO);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING_ZERO);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
+		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 	}
 
 	@Test
 	public void exhaustiveQueryForStatuses_TestManyStatuses() throws TwitterException {
 
-		List<Status> hashtags = agent.exhaustiveQuery(SIMPLE_QUERY_STRING_ALWAYS);
+		List<Status> statuses = agent.exhaustiveQuery(SIMPLE_QUERY_STRING_ALWAYS);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
-		assertTrue("Exhaustive Query for Statuses should return many results!", SIMPLE_RETURN_ZERO < hashtags.size());
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
+		assertTrue("Exhaustive Query for Statuses should return many results!", SIMPLE_RETURN_ZERO < statuses.size());
 	}
 
 	@Test
 	public void exhaustiveQueryForStatuses_Null() throws TwitterException {
 
-		List<Status> hashtags = agent.exhaustiveQuery(null);
+		List<Status> statuses = agent.exhaustiveQuery(null);
 
-		assertNotNull("Exhaustive Query for Statuses should not return a null response!", hashtags);
-		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, hashtags.size());
+		assertNotNull("Exhaustive Query for Statuses should not return a null response!", statuses);
+		assertEquals("Exhaustive Query for Statuses should return zero results!", SIMPLE_RETURN_ZERO, statuses.size());
 	}
 
 }

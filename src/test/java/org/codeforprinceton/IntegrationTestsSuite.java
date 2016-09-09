@@ -3,6 +3,7 @@
  */
 package org.codeforprinceton;
 
+import org.codeforprinceton.spider.TwitterSpiderIntegrationTests;
 import org.codeforprinceton.twitter.TwitterSearchAgentIntegrationTests;
 import org.junit.experimental.categories.Categories;
 import org.junit.experimental.categories.Categories.ExcludeCategory;
@@ -18,7 +19,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Categories.class)
 @IncludeCategory(IntegrationTestCategory.class)
 @ExcludeCategory(UnitTestCategory.class)
-@SuiteClasses({ TwitterSearchAgentIntegrationTests.class })
+@SuiteClasses({ TwitterSearchAgentIntegrationTests.class, TwitterSpiderIntegrationTests.class })
 public class IntegrationTestsSuite {
 
 	// Purposefully empty

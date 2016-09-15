@@ -1,7 +1,7 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton;
+package org.codeforprinceton.nitwit;
 
 import org.junit.Ignore;
 import org.junit.Test;

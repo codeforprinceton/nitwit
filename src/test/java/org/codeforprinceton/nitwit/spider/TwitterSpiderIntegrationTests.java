@@ -1,18 +1,19 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton.spider;
+package org.codeforprinceton.nitwit.spider;
 
-import static org.junit.Assert.fail;
+import java.util.List;
 
-import org.codeforprinceton.IntegrationTestCategory;
-import org.codeforprinceton.twitter.TwitterSearchAgent;
+import org.codeforprinceton.nitwit.IntegrationTestCategory;
+import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
 
 /**
  * Twitter Spider Integration Tests.
@@ -26,24 +27,38 @@ import org.mockito.Mock;
 @Category(IntegrationTestCategory.class)
 public class TwitterSpiderIntegrationTests {
 
+	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#codeforprinceton";
+
+	private Twitter twitter = null;
+
 	private TwitterSearchAgent agent = null;
-	
+
 	private TwitterSpider spider = null;
-	
+
 	@Before
 	public void setUp() throws Exception {
 
+		twitter = TwitterFactory.getSingleton();
+		agent = new TwitterSearchAgent(twitter);
+		spider = new TwitterSpider(agent);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 
+		spider = null;
+		agent = null;
+		twitter = null;
 	}
 
 	@Test
 	public void test() {
 
-		fail("Not yet implemented");
-	}
+		List<String> hashtags = spider.spiderHashtags(SIMPLE_QUERY_STRING_ALWAYS);
 
+		for (String hashtag : hashtags) {
+			
+			System.out.println(hashtag);
+		}
+	}
 }

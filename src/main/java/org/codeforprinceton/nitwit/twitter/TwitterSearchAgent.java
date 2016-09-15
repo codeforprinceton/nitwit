@@ -1,7 +1,7 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton.twitter;
+package org.codeforprinceton.nitwit.twitter;
 
 import java.util.ArrayList;
 import java.util.List;

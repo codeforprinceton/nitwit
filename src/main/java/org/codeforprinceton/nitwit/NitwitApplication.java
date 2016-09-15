@@ -1,7 +1,7 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton;
+package org.codeforprinceton.nitwit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

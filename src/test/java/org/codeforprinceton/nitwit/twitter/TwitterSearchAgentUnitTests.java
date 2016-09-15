@@ -1,7 +1,7 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton.twitter;
+package org.codeforprinceton.nitwit.twitter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +12,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codeforprinceton.UnitTestCategory;
+import org.codeforprinceton.nitwit.UnitTestCategory;
+import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

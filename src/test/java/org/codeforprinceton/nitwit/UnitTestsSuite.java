@@ -1,10 +1,10 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton;
+package org.codeforprinceton.nitwit;
 
-import org.codeforprinceton.spider.TwitterSpiderUnitTests;
-import org.codeforprinceton.twitter.TwitterSearchAgentUnitTests;
+import org.codeforprinceton.nitwit.spider.TwitterSpiderUnitTests;
+import org.codeforprinceton.nitwit.twitter.TwitterSearchAgentUnitTests;
 import org.junit.experimental.categories.Categories;
 import org.junit.experimental.categories.Categories.ExcludeCategory;
 import org.junit.experimental.categories.Categories.IncludeCategory;

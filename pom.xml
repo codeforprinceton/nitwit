@@ -83,13 +83,13 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<testcase.groups>org.codeforprinceton.UnitTestCategory</testcase.groups>
+				<testcase.groups>org.codeforprinceton.nitwit.UnitTestCategory</testcase.groups>
 			</properties>
 		</profile>
 		<profile>
 			<id>IntegrationTests</id>
 			<properties>
-				<testcase.groups>org.codeforprinceton.IntegrationTestCategory</testcase.groups>
+				<testcase.groups>org.codeforprinceton.nitwit.IntegrationTestCategory</testcase.groups>
 			</properties>
 		</profile>
 	</profiles>

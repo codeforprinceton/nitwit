@@ -1,7 +1,7 @@
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
-package org.codeforprinceton.twitter;
+package org.codeforprinceton.nitwit.twitter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,7 +9,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.codeforprinceton.IntegrationTestCategory;
+import org.codeforprinceton.nitwit.IntegrationTestCategory;
+import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,6 @@ public class TwitterSearchAgentIntegrationTests {
 	public void setUp() throws Exception {
 
 		twitter = TwitterFactory.getSingleton();
-
 		agent = new TwitterSearchAgent(twitter);
 	}
 
@@ -60,6 +60,7 @@ public class TwitterSearchAgentIntegrationTests {
 	public void tearDown() throws Exception {
 
 		agent = null;
+		twitter = null;
 	}
 
 	@Test

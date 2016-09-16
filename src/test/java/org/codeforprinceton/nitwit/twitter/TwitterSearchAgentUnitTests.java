@@ -41,7 +41,7 @@ import twitter4j.TwitterException;
 @Category(UnitTestCategory.class)
 public class TwitterSearchAgentUnitTests {
 
-	private static final String SIMPLE_QUERY_STRING = "#codeforprinceton";
+	private static final String SIMPLE_QUERY_STRING = "codeforprinceton";
 
 	private static final int SIMPLE_RETURN_ZERO = 0;
 

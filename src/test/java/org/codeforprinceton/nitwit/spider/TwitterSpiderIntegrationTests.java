@@ -29,6 +29,8 @@ public class TwitterSpiderIntegrationTests {
 
 	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#codeforprinceton";
 
+	private static final int MAXIMUM_LEVELS = 2;
+
 	private Twitter twitter = null;
 
 	private TwitterSearchAgent agent = null;
@@ -54,10 +56,10 @@ public class TwitterSpiderIntegrationTests {
 	@Test
 	public void test() {
 
-		List<String> hashtags = spider.spiderHashtags(SIMPLE_QUERY_STRING_ALWAYS);
+		List<String> hashtags = spider.spiderHashtags(SIMPLE_QUERY_STRING_ALWAYS, MAXIMUM_LEVELS);
 
 		for (String hashtag : hashtags) {
-			
+
 			System.out.println(hashtag);
 		}
 	}

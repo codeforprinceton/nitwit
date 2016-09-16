@@ -33,9 +33,9 @@ import twitter4j.TwitterFactory;
 @Category(IntegrationTestCategory.class)
 public class TwitterSearchAgentIntegrationTests {
 
-	private static final String SIMPLE_QUERY_STRING_ZERO = "#NotExpectingAResultForThisHashtag";
+	private static final String SIMPLE_QUERY_STRING_ZERO = "NotExpectingAResultForThisHashtag";
 
-	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#Always";
+	private static final String SIMPLE_QUERY_STRING_ALWAYS = "Always";
 
 	private static final int SIMPLE_RETURN_ZERO = 0;
 

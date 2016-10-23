@@ -3,9 +3,12 @@
  */
 package org.codeforprinceton.nitwit.spider;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
 import org.slf4j.Logger;
@@ -69,7 +72,7 @@ public class TwitterSpider {
 		logger.info("Executing search using hashtag '" + hashtag + "' at level " + currentLevel + " of " + maxLevels);
 		extractHashtagsFromStatuses(agent.exhaustiveQuery(hashtag), hashtags, maxLevels, currentLevel);
 
-		return hashtags;
+		return sortByValue(hashtags);
 	}
 
 	private void extractHashtagsFromStatuses(List<Status> statuses, Map<String, Integer> hashtags, int maxLevels,
@@ -113,11 +116,11 @@ public class TwitterSpider {
 		for (String key : newHashtags.keySet()) {
 
 			if (runningHashtags.containsKey(key)) {
-				
+
 				runningHashtags.put(key, runningHashtags.get(key) + newHashtags.get(key));
 			}
 			else {
-				
+
 				runningHashtags.put(key, newHashtags.get(key));
 			}
 		}
@@ -130,5 +133,11 @@ public class TwitterSpider {
 			return Boolean.FALSE;
 		}
 		return Boolean.TRUE;
+	}
+
+	private static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+
+		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 	}
 }

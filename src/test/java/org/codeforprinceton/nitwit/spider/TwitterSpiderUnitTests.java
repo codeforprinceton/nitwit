@@ -52,10 +52,6 @@ public class TwitterSpiderUnitTests {
 	private static final int ONE_HASHTAG_RESULT = 1;
 
 	private static final int TWO_HASHTAG_RESULTS = 2;
-
-	private static final int THREE_HASHTAG_RESULTS = 3;
-
-	private static final int FOUR_HASHTAG_RESULTS = 4;
 	
 	private static final int HASHTAG_ZERO_POSITION = 0;
 

@@ -3,10 +3,9 @@
  */
 package org.codeforprinceton.nitwit.spider;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
 import org.slf4j.Logger;
@@ -29,6 +28,8 @@ public class TwitterSpider {
 
 	private static final int DEFAULT_LEVELS = 0;
 
+	private static final int DEFAULT_COUNT = 1;
+
 	private TwitterSearchAgent agent;
 
 	public TwitterSpider(TwitterSearchAgent agent) {
@@ -40,9 +41,9 @@ public class TwitterSpider {
 	 * Spiders Twitter based upon a starting Hashtag.
 	 * 
 	 * @param hashtag the Hashtag
-	 * @return a List of Hashtags
+	 * @return a Map of Hashtags
 	 */
-	public List<String> spiderHashtags(String hashtag) {
+	public Map<String, Integer> spiderHashtags(String hashtag) {
 
 		return spiderHashtags(hashtag, DEFAULT_LEVELS);
 	}
@@ -52,26 +53,26 @@ public class TwitterSpider {
 	 * 
 	 * @param hashtag the Hashtag
 	 * @param maxLevels the Number of Levels down we can go
-	 * @return a List of Hashtags
+	 * @return a Map of Hashtags
 	 */
-	public List<String> spiderHashtags(String hashtag, int maxLevels) {
+	public Map<String, Integer> spiderHashtags(String hashtag, int maxLevels) {
 
 		return spiderHashtags(hashtag, maxLevels, DEFAULT_LEVELS);
 	}
 
-	private List<String> spiderHashtags(String hashtag, int maxLevels, int currentLevel) {
+	private Map<String, Integer> spiderHashtags(String hashtag, int maxLevels, int currentLevel) {
 
-		Set<String> hashtags = new HashSet<>();
+		Map<String, Integer> hashtags = new HashMap<>();
 
-		hashtags.add(hashtag);
+		hashtags.put(hashtag, DEFAULT_COUNT);
 
 		logger.info("Executing search using hashtag '" + hashtag + "' at level " + currentLevel + " of " + maxLevels);
 		extractHashtagsFromStatuses(agent.exhaustiveQuery(hashtag), hashtags, maxLevels, currentLevel);
 
-		return new ArrayList<>(hashtags);
+		return hashtags;
 	}
 
-	private void extractHashtagsFromStatuses(List<Status> statuses, Set<String> hashtags, int maxLevels,
+	private void extractHashtagsFromStatuses(List<Status> statuses, Map<String, Integer> hashtags, int maxLevels,
 			int currentLevel) {
 
 		currentLevel++;
@@ -86,19 +87,38 @@ public class TwitterSpider {
 		currentLevel--;
 	}
 
-	private void extractHashtagFromHashtagEntities(HashtagEntity[] hashtagEntities, Set<String> hashtags, int maxLevels,
-			int currentLevel) {
+	private void extractHashtagFromHashtagEntities(HashtagEntity[] hashtagEntities, Map<String, Integer> hashtags,
+			int maxLevels, int currentLevel) {
 
 		for (HashtagEntity hashtag : hashtagEntities) {
 
-			if (!hashtags.contains(hashtag.getText())) {
+			if (!hashtags.containsKey(hashtag.getText())) {
 
-				hashtags.add(hashtag.getText());
+				hashtags.put(hashtag.getText(), DEFAULT_COUNT);
 
 				if (!isMaxLevel(maxLevels, currentLevel)) {
 
-					hashtags.addAll(spiderHashtags(hashtag.getText(), maxLevels, currentLevel));
+					merge(hashtags, spiderHashtags(hashtag.getText(), maxLevels, currentLevel));
 				}
+			}
+			else {
+
+				hashtags.put(hashtag.getText(), hashtags.get(hashtag.getText()) + DEFAULT_COUNT);
+			}
+		}
+	}
+
+	private void merge(Map<String, Integer> runningHashtags, Map<String, Integer> newHashtags) {
+
+		for (String key : newHashtags.keySet()) {
+
+			if (runningHashtags.containsKey(key)) {
+				
+				runningHashtags.put(key, runningHashtags.get(key) + newHashtags.get(key));
+			}
+			else {
+				
+				runningHashtags.put(key, newHashtags.get(key));
 			}
 		}
 	}

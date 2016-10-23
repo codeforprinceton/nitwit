@@ -3,7 +3,7 @@
  */
 package org.codeforprinceton.nitwit.spider;
 
-import java.util.List;
+import java.util.Map;
 
 import org.codeforprinceton.nitwit.IntegrationTestCategory;
 import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
@@ -56,11 +56,11 @@ public class TwitterSpiderIntegrationTests {
 	@Test
 	public void test() {
 
-		List<String> hashtags = spider.spiderHashtags(SIMPLE_QUERY_STRING_ALWAYS, MAXIMUM_LEVELS);
+		Map<String, Integer> hashtags = spider.spiderHashtags(SIMPLE_QUERY_STRING_ALWAYS, MAXIMUM_LEVELS);
 
-		for (String hashtag : hashtags) {
+		for (String hashtag : hashtags.keySet()) {
 
-			System.out.println(hashtag);
+			System.out.printf("%s referenced %d times %n", hashtag, hashtags.get(hashtag));
 		}
 	}
 }

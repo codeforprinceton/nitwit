@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.codeforprinceton.nitwit.UnitTestCategory;
 import org.codeforprinceton.nitwit.twitter.TwitterSearchAgent;
@@ -97,7 +98,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		when(agent.exhaustiveQuery(QUERY_STRING)).thenReturn(new ArrayList<Status>());
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return zero results!", ONE_HASHTAG_RESULT, hashtags.size());
@@ -112,7 +113,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		when(agent.exhaustiveQuery(QUERY_STRING)).thenReturn(statuses);
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return one result!", TWO_HASHTAG_RESULTS, hashtags.size());
@@ -127,7 +128,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		when(agent.exhaustiveQuery(QUERY_STRING)).thenReturn(statuses);
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return two results!", THREE_HASHTAG_RESULTS, hashtags.size());
@@ -147,7 +148,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		when(agent.exhaustiveQuery(secondHashtag)).thenReturn(levelTwoStatuses);
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return two results!", THREE_HASHTAG_RESULTS, hashtags.size());
@@ -165,7 +166,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		String secondHashtag = levelOneStatuses.get(HASHTAG_ZERO_POSITION).getHashtagEntities()[0].getText();
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING, MAXIMUM_LEVELS_ONE);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING, MAXIMUM_LEVELS_ONE);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return two results!", TWO_HASHTAG_RESULTS, hashtags.size());
@@ -188,7 +189,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		String thirdHashtag = levelTwoStatuses.get(HASHTAG_ZERO_POSITION).getHashtagEntities()[0].getText();
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING, MAXIMUM_LEVELS_TWO);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING, MAXIMUM_LEVELS_TWO);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return three results!", THREE_HASHTAG_RESULTS, hashtags.size());
@@ -215,7 +216,7 @@ public class TwitterSpiderStubbedUnitTests {
 
 		when(agent.exhaustiveQuery(thirdHashtag)).thenReturn(levelThreeStatuses);
 
-		List<String> hashtags = spider.spiderHashtags(QUERY_STRING, MAXIMUM_LEVELS_THREE);
+		Map<String, Integer> hashtags = spider.spiderHashtags(QUERY_STRING, MAXIMUM_LEVELS_THREE);
 
 		assertNotNull("Spider for Hashtags should not return a null response!", hashtags);
 		assertEquals("Spider for Hashtags should return four results!", FOUR_HASHTAG_RESULTS, hashtags.size());

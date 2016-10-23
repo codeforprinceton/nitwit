@@ -3,6 +3,7 @@
  */
 package org.codeforprinceton.nitwit.rest;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.codeforprinceton.nitwit.spider.TwitterSpider;
@@ -42,6 +43,19 @@ public class TwitterController {
 			@RequestParam(value = "top", defaultValue = "8") Integer top) {
 
 		Map<String, Integer> hashtags = spider.spiderHashtags(keywords, levels);
+		Map<String, Integer> topHashtags = new LinkedHashMap<>();
+
+		int position = 0;
+
+		for (Map.Entry<String, Integer> entry : hashtags.entrySet()) {
+
+			position++;
+			topHashtags.put(entry.getKey(), entry.getValue());
+
+			if (position == top) {
+				return new TwitterResponseMap(topHashtags);
+			}
+		}
 
 		return new TwitterResponseMap(hashtags);
 	}

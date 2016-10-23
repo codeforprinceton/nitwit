@@ -325,6 +325,17 @@ public class TwitterSearchAgentUnitTests {
 		verify(twitter).search(query);
 	}
 
+	@Test(expected = TwitterRateLimitException.class)
+	public void exhaustiveQueryForStatuses_TwitterException429() throws TwitterException {
+		
+		Query query = new Query(SIMPLE_QUERY_STRING);
+		query.setCount(SIMPLE_RETURN_HUNDRED);
+
+		when(twitter.search(query)).thenThrow(new TwitterException("", new Exception(), 429));
+		
+		agent.exhaustiveQuery(SIMPLE_QUERY_STRING);
+	}
+	
 	private List<Status> buildStatusList(int number) {
 
 		List<Status> statuses = new ArrayList<>();

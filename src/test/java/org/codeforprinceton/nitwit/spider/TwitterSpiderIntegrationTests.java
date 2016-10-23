@@ -27,7 +27,7 @@ import twitter4j.TwitterFactory;
 @Category(IntegrationTestCategory.class)
 public class TwitterSpiderIntegrationTests {
 
-	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#codeforprinceton";
+	private static final String SIMPLE_QUERY_STRING_ALWAYS = "#trump";
 
 	private static final int MAXIMUM_LEVELS = 2;
 

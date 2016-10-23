@@ -1,4 +1,3 @@
-
 /**
  * Copyright of Code for Princeton (c) 2016.
  */
@@ -102,7 +101,6 @@ public class TwitterSpider {
 				}
 			}
 		}
-
 	}
 
 	private Boolean isMaxLevel(int maxLevels, int currentLevel) {

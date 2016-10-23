@@ -98,7 +98,7 @@ public class TwitterSearchAgent {
 	 * @param simpleQueryString the simple query String
 	 * @return a List of Statuses
 	 */
-	public List<Status> exhaustiveQuery(String simpleQueryString) {
+	public List<Status> exhaustiveQuery(String simpleQueryString) throws TwitterRateLimitException {
 
 		List<Status> statuses = new ArrayList<>();
 
@@ -119,14 +119,16 @@ public class TwitterSearchAgent {
 				statuses.addAll(result.getTweets());
 			}
 		}
-		catch (
-
-		TwitterException exception) {
-
+		catch (TwitterException exception) {
+			
 			logger.warn("Failed to query Twitter!", exception);
+			
+			if (exception.exceededRateLimitation()) {
+				
+				throw new TwitterRateLimitException();
+			}
 			return new ArrayList<>();
 		}
-
 		return statuses;
 	}
 
